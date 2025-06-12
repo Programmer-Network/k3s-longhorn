@@ -16,6 +16,16 @@ spec:
         values: |
           preUpgradeChecker:
             jobEnabled: false
+          manager:
+            readinessProbe:
+              httpGet:
+                path: /v1/healthz
+                port: 9501
+                scheme: HTTP
+              initialDelaySeconds: 30
+              periodSeconds: 10
+              timeoutSeconds: 5
+              failureThreshold: 6
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
